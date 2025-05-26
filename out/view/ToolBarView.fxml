@@ -5,14 +5,14 @@
 
 
 <?import javafx.scene.control.TextArea?>
-<VBox xmlns:fx="http://javafx.com/fxml" spacing="5" prefWidth="380">
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="5" prefWidth="380" fx:controller="controller.ToolBarController">
 
 <!--      fx:controller="controller.editeurController.java"-->
 
     <HBox spacing="5">
-        <Button text="Charger" />
-        <Button text="Modifier" />
-        <Button text="Enregistrer" />
-        <ComboBox fx:id="chapitresCombo" promptText="Chapitre"/>
+        <Button text="Charger" onAction="#chargeFile"/>
+        <Button text="Modifier" onAction="#editFile"/>
+        <Button text="Enregistrer" onAction="#saveFile" />
+        <ComboBox fx:id="comboBoxChapters" promptText="Chapitre"/>
     </HBox>
 </VBox>

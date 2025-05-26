@@ -1,29 +1,48 @@
 package model;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MainModel {
     private int id_chapter;
-    private List<String> content;
-    public MainModel(int id_chapter, List<String> content) {
+    private LinkedHashMap<Integer, String> allContent;
+    public MainModel(int id_chapter, String content) {
         this.id_chapter = id_chapter;
-        this.content = content;
+        this.allContent = new LinkedHashMap<>();
+
+    }
+
+//    public LinkedHashMap<Integer, List<String>> createMapChapters(List<String> content) {
+//        for (int i = 0; i < this.id_chapter; i++) {
+//
+//            this.allContent.put(i, this.allContent.get(i));
+//        }
+//    }
+
+    public void updateChapter(int id_chapter, String content) {
+        this.getAllContent().put(id_chapter, content);
+    }
+
+
+    public LinkedHashMap<Integer, String> getAllContent() {
+        return allContent;
     }
 
     public MainModel() {
         this.id_chapter = 0;
-        this.content = new ArrayList<>();
+        this.allContent = new LinkedHashMap<>();
     }
 
     public void addChapter(String content) {
+        this.allContent.put(this.id_chapter, content);
         this.id_chapter++;
-        this.content.add(content);
     }
 
-    public List<String> getContent() {
-        return content;
+    public LinkedHashMap<Integer, String> getAllChapter() {
+        return allContent;
     }
-    public int getId_chapter() {
+    public int getIdChapter() {
         return id_chapter;
     }
 }
