@@ -8,9 +8,9 @@ public class MenuBarController {
     @FXML
     private MenuBar menuBar;
 
-    private editeurController parent;
+    private MainController parent;
 
-    public void setParent(editeurController parent) {
+    public void setParent(MainController parent) {
         this.parent = parent;
     }
 

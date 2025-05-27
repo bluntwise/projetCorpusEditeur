@@ -8,17 +8,15 @@ import java.util.*;
 import helpers.FileContentRaw;
 import helpers.TextParserCorpus;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.MainModel;
 import javafx.fxml.FXML;
-import helpers.RomanConverter;
 
 import static helpers.RomanConverter.toRomanWithDot;
 
 public class ToolBarController {
-    private editeurController parent;
+    private MainController parent;
     private String zone;
     private int chapter;
     private File FileSource;
@@ -26,7 +24,7 @@ public class ToolBarController {
     private ComboBox<String> comboBoxChapters;
 
 
-    public void setParent(editeurController parent) {
+    public void setParent(MainController parent) {
         this.parent = parent;
         this.chapter = 0;
         this.FileSource = null;
@@ -70,6 +68,12 @@ public class ToolBarController {
 
         this.chapter = chapterIndex;
     }
+
+    private void displayWithHighlights(Set<String> commonsWords) {
+
+    }
+
+
 
 
     public void setStage(Stage stage) {

@@ -20,7 +20,7 @@ import model.MainModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-public class editeurController {
+public class MainController {
 
 
     @FXML
@@ -103,6 +103,8 @@ public class editeurController {
         System.out.println("Mots en commun (" + commonWords.size() + ") : " + commonWords);
         return commonWords;
     }
+
+
 
     public TextArea getRightTextArea() {
         return rightTextArea;
