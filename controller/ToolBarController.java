@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-
 import helpers.FileContentRaw;
 import helpers.TextParserCorpus;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.MainModel;
@@ -18,39 +18,33 @@ import static helpers.RomanConverter.toRomanWithDot;
 public class ToolBarController {
     private MainController parent;
     private String zone;
-    private int chapter;
     private File FileSource;
     @FXML
     private ComboBox<String> comboBoxChapters;
 
+    private MainModel model;
+    private Stage stage;
 
     public void setParent(MainController parent) {
         this.parent = parent;
-        this.chapter = 0;
         this.FileSource = null;
+        setupComboBoxChapters();
     }
 
     public void setZone(String zone) {
         this.zone = zone;
     }
 
-    public ComboBox<String> getComboBoxChapters() {
-        return comboBoxChapters;
-    }
 
-    private MainModel model;
-    private Stage stage;
     @FXML
     public void initialize() {
         model = new MainModel();
-        setupComboBoxChapters();
-
     }
 
 
     public void setupComboBoxChapters() {
         comboBoxChapters.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
+            if (newVal != null ) {
                 loadChapter(comboBoxChapters.getSelectionModel().getSelectedIndex());
             }
         });
@@ -58,22 +52,31 @@ public class ToolBarController {
 
     private void loadChapter(int chapterIndex) {
         String content = model.getAllContent().get(chapterIndex);
-        String text = String.join("\n", content); // concatène les lignes avec des sauts de ligne
 
+        // Mise à jour de la zone de texte
         if ("left".equals(zone)) {
-            parent.getLeftTextArea().setText(text);
+            parent.getLeftTextArea().setText(content);
+
+            Text textNode = new Text(content);
+            parent.getLeftTextFlow().getChildren().setAll(textNode);
+            if (parent.getHighlighted()){
+                parent.getMenuBarController().setHighlighted(false);
+                parent.getMenuBarController().handleShowCommonWords();
+            }
+
         } else if ("right".equals(zone)) {
-            parent.getRightTextArea().setText(text);
+            parent.getRightTextArea().setText(content);
+
+            Text textNode = new Text(content);
+            parent.getRightTextFlow().getChildren().setAll(textNode);
+            if (parent.getHighlighted()){
+                parent.getMenuBarController().setHighlighted(false);
+                parent.getMenuBarController().handleShowCommonWords();
+            }
         }
-
-        this.chapter = chapterIndex;
+        parent.getFooterController().setCommonWordsCount(parent.compareTexts().size());
+        parent.getFooterController().setLevenshteinDistance(parent.getLevenshteinDistance(parent.getTextLeftArea(), parent.getTextRightArea()));
     }
-
-    private void displayWithHighlights(Set<String> commonsWords) {
-
-    }
-
-
 
 
     public void setStage(Stage stage) {
@@ -100,8 +103,6 @@ public class ToolBarController {
                 // Puis écrire toutes les lignes
                 writer.write(content_chapter);
                 writer.newLine();
-
-
             }
             System.out.println("Modifications enregistrées dans : " + FileSource);
         } catch (IOException e) {
@@ -130,9 +131,6 @@ public class ToolBarController {
             model.updateChapter(selectedIndex, targetTextArea.getText());
         }
     }
-
-
-
 
     @FXML
     private void chargeFile(){
@@ -165,11 +163,7 @@ public class ToolBarController {
 
         comboBoxChapters.getItems().setAll(chapterLabels);
         comboBoxChapters.getSelectionModel().selectFirst();
-//        List<String> chapters = model.getAllContent().get(this.chapter);
-//        if ("left".equals(zone)) {
-//            parent.getLeftListView().getItems().setAll(chapters);
-//        } else if ("right".equals(zone)) {
-//            parent.getRightListView().getItems().setAll(chapters);
-//        }
     }
+
+
 }
