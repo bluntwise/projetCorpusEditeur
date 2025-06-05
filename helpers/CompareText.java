@@ -14,12 +14,15 @@ public class CompareText {
 
         Set<String> set1 = new HashSet<>(List.of(words1));
         Set<String> set2 = new HashSet<>(List.of(words2));
+        if (set1.contains("aoihguçpgtyuçreygo_try")) {
+            System.out.println("alan detecté");
+        }
 
         // Intersection : mots communs
         Set<String> commonWords = new HashSet<>(set1);
         commonWords.retainAll(set2);
 
-        System.out.println("Mots en commun (" + commonWords.size() + ") : " + commonWords);
+        // System.out.println("Mots en commun (" + commonWords.size() + ") : " + commonWords);
 
         return commonWords;
     }

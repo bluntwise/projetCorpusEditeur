@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuBar;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -12,6 +11,8 @@ import java.util.regex.Pattern;
 public class MenuBarController {
 
     private MainController parent;
+
+
     private boolean highlighted = false;
     public void setParent(MainController parent) {
         this.parent = parent;
@@ -33,6 +34,12 @@ public class MenuBarController {
             highlighted = false;
         }
     }
+
+    @FXML
+    private void onToggleFooterClicked() {
+        parent.toggleFooterVisibility(); // `parent` est une référence à MainController
+    }
+
 
     public void setHighlighted(boolean highlighted) {
         this.highlighted = highlighted;

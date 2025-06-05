@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import helpers.ErrorDialog;
 import helpers.LevenshteinDistance;
 import helpers.CompareText;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +42,18 @@ public class MainController {
     @FXML
     private AnchorPane footerContainer;
     private FooterController footerController;
+
+
+    private boolean isFooterVisible = true;
+
+    public void toggleFooterVisibility() {
+        isFooterVisible = !isFooterVisible;
+        footerContainer.setVisible(isFooterVisible);
+        footerContainer.setManaged(isFooterVisible); // ajuste la place occupée
+    }
+
+
+
 
     public void initialize() {
         try {
@@ -88,6 +102,7 @@ public class MainController {
             this.footerController = footerCtrl;
 
         } catch (IOException e) {
+            ErrorDialog.show("Error", "Error loading FXML file.");
             throw new RuntimeException(e);
         }
     }

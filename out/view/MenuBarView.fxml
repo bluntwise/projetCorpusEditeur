@@ -6,7 +6,8 @@
     <MenuBar fx:id="menuBar">
         <Menu text="Fichier"/>
         <Menu text="Outils">
-            <MenuItem text="Afficher mots communs et occurences" onAction="#handleShowCommonWords"/>
+            <MenuItem text="Afficher les occurences et la distance Levenshtein" onAction="#onToggleFooterClicked"/>
+            <MenuItem text="Afficher les mots en commun" onAction="#handleShowCommonWords"/>
         </Menu>
         <Menu text="Aide"/>
     </MenuBar>

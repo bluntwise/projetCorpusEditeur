@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+
+import helpers.ErrorDialog;
 import helpers.FileContentRaw;
 import helpers.TextParserCorpus;
 import javafx.scene.control.*;
@@ -149,20 +151,25 @@ public class ToolBarController {
             // Tu peux maintenant le lire et l'afficher dans un TextArea
         }
 
-        assert selectedFile != null;
-        FileContentRaw extractContent = new FileContentRaw(selectedFile.getAbsolutePath());
+        if (selectedFile != null) {
+            FileContentRaw extractContent = new FileContentRaw(selectedFile.getAbsolutePath());
 
-        TextParserCorpus parser = new TextParserCorpus(extractContent.getContent());
-        model = parser.parse();
-        int nbChapters = model.getIdChapter();
+            TextParserCorpus parser = new TextParserCorpus(extractContent.getContent());
+            model = parser.parse();
+            int nbChapters = model.getIdChapter();
 
-        List<String> chapterLabels = new ArrayList<>();
-        for (int i = 0; i < nbChapters; i++) {
-            chapterLabels.add("Chapitre " + (i + 1));
+            List<String> chapterLabels = new ArrayList<>();
+            for (int i = 0; i < nbChapters; i++) {
+                chapterLabels.add("Chapitre " + (i + 1));
+            }
+
+            comboBoxChapters.getItems().setAll(chapterLabels);
+            comboBoxChapters.getSelectionModel().selectFirst();
+        }else{
+            ErrorDialog.show("Error", "Aucun fichier séléctionné.");
         }
 
-        comboBoxChapters.getItems().setAll(chapterLabels);
-        comboBoxChapters.getSelectionModel().selectFirst();
+
     }
 
 
