@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ErrorDialog {
     public static void show(String title, String message) {
         try{
-            FXMLLoader loader = new FXMLLoader(ErrorDialog.class.getResource("ErrorDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(ErrorDialog.class.getResource("/view/ErrorDialogView.fxml"));
             Parent root = loader.load();
 
             ErrorDialogController controller = loader.getController();

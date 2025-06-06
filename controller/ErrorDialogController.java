@@ -13,9 +13,12 @@ public class ErrorDialogController {
     @FXML
     private Stage dialogStage;
     @FXML
-    public void onClose() {
-
+    private void onClose() {
+        if (dialogStage != null) {
+            dialogStage.close();
+        }
     }
+
 
 
     public void setDialogStage(Stage dialogStage) {
