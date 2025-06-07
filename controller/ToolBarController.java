@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 
 import helpers.ErrorDialog;
@@ -21,6 +22,7 @@ public class ToolBarController {
     private MainController parent;
     private String zone;
     private File FileSource;
+
     @FXML
     private ComboBox<String> comboBoxChapters;
 
@@ -106,10 +108,11 @@ public class ToolBarController {
                 writer.write(content_chapter);
                 writer.newLine();
             }
-            System.out.println("Modifications enregistrées dans : " + FileSource);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        updateCorpusText();
     }
 
 
@@ -124,15 +127,81 @@ public class ToolBarController {
 
         if (isNowEditable) {
             targetTextArea.setStyle("-fx-control-inner-background: #ffffe0;");
-            System.out.println("Édition activée");
+
         } else {
             targetTextArea.setStyle("");
-            System.out.println("Édition désactivée. Mise à jour du modèle.");
+
+            if (parent.getHighlighted()){
+                System.out.println(isNowEditable);
+
+                ErrorDialog.show("Problème", "Impossible de modifier le chapitre, l'affichage des mots communs est en cours.");
+            }
 
             int selectedIndex = comboBoxChapters.getSelectionModel().getSelectedIndex();
             model.updateChapter(selectedIndex, targetTextArea.getText());
         }
     }
+
+    public String inverseZone(){
+        if (zone == "left") {
+            return "right";
+        }else{
+            return "left";
+        }
+    }
+
+    public File getFileSource() {
+        return FileSource;
+    }
+    public MainModel getModel() {
+        return model;
+    }
+
+    public void setModel(MainModel model) {
+        this.model = model;
+    }
+
+
+
+    public void updateCorpusText(){
+        ToolBarController otherController = parent.getToolBarController(inverseZone());
+
+        if (otherController != null && otherController.getFileSource() != null &&
+                otherController.getFileSource().getAbsolutePath().equals(this.FileSource.getAbsolutePath())) {
+
+            System.out.println("Même fichier détecté dans l'autre zone, rechargement du contenu...");
+
+            try {
+                // Lire tout le fichier
+                String fileContent = Files.readString(FileSource.toPath());
+
+                // Reparser le fichier
+                TextParserCorpus parser = new TextParserCorpus(fileContent);
+                MainModel newModel = parser.parse();
+
+                // Mettre à jour le modèle du contrôleur opposé
+                otherController.setModel(newModel);
+
+                // Forcer rechargement de l'affichage du chapitre sélectionné
+                int selectedIndex = otherController.getComboBoxChapters().getSelectionModel().getSelectedIndex();
+                if (selectedIndex == -1) selectedIndex = 0;
+
+                otherController.loadChapter(selectedIndex);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                ErrorDialog.show("Erreur", "Impossible de recharger le fichier.");
+            }
+        }
+    }
+
+    public ComboBox<String> getComboBoxChapters() {
+        return comboBoxChapters;
+    }
+
+
+
+
 
     @FXML
     private void chargeFile(){
@@ -166,7 +235,7 @@ public class ToolBarController {
             comboBoxChapters.getItems().setAll(chapterLabels);
             comboBoxChapters.getSelectionModel().selectFirst();
         }else{
-            ErrorDialog.show("Error", "Aucun fichier séléctionné.");
+            ErrorDialog.show("Problème", "Aucun fichier séléctionné.");
         }
 
 

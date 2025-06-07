@@ -138,6 +138,16 @@ public class MainController {
         return CompareText.compareTextsUtils(this.getTextLeftArea(), this.getTextRightArea());
     }
 
+    public ToolBarController getToolBarController(String zone) {
+        if (zone == "left") {
+            return this.toolBarControllerLeft;
+        }else if (zone == "right") {
+            return this.toolBarControllerRight;
+        }
+        return null;
+    }
+
+
     public MenuBarController getMenuBarController() {
         return menuBarController;
     }
