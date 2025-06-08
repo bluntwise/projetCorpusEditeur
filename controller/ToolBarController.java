@@ -22,7 +22,7 @@ public class ToolBarController {
     private MainController parent;
     private String zone;
     private File FileSource;
-
+    private boolean isNowEditable = false;
     @FXML
     private ComboBox<String> comboBoxChapters;
 
@@ -93,26 +93,31 @@ public class ToolBarController {
             System.out.println("Aucun fichier téléchargé");
             return;
         }
-        LinkedHashMap<Integer, String> allContent = model.getAllContent();
+        if (!isNowEditable){
+            LinkedHashMap<Integer, String> allContent = model.getAllContent();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileSource))) {
-            for(Map.Entry<Integer, String> entry : allContent.entrySet()) {
-                Integer id_chapter = entry.getKey();
-                String content_chapter = entry.getValue();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileSource))) {
+                for(Map.Entry<Integer, String> entry : allContent.entrySet()) {
+                    Integer id_chapter = entry.getKey();
+                    String content_chapter = entry.getValue();
 
 
-                writer.write("\n" + toRomanWithDot(id_chapter + 1) + ".\n"); // chapitre 1 = I.
-                writer.newLine();
+                    writer.write("\n" + toRomanWithDot(id_chapter + 1) + ".\n"); // chapitre 1 = I.
+                    writer.newLine();
 
-                // Puis écrire toutes les lignes
-                writer.write(content_chapter);
-                writer.newLine();
+                    // Puis écrire toutes les lignes
+                    writer.write(content_chapter);
+                    writer.newLine();
+                }
+                System.out.println("Enregistrement du fichier");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            updateCorpusText();
+        }else{
+            ErrorDialog.show("Erreur", "Veuillez finir la modification du fichier en réappuyant sur le bouton Modification.");
         }
 
-        updateCorpusText();
     }
 
 
@@ -122,7 +127,11 @@ public class ToolBarController {
                 ? parent.getLeftTextArea()
                 : parent.getRightTextArea();
 
-        boolean isNowEditable = !targetTextArea.isEditable();
+        if (parent.getHighlighted()){
+            ErrorDialog.show("Problème", "Impossible de modifier le chapitre, l'affichage des mots communs est en cours.");
+            return;
+        }
+        isNowEditable = !targetTextArea.isEditable();
         targetTextArea.setEditable(isNowEditable);
 
         if (isNowEditable) {
@@ -131,11 +140,7 @@ public class ToolBarController {
         } else {
             targetTextArea.setStyle("");
 
-            if (parent.getHighlighted()){
-                System.out.println(isNowEditable);
 
-                ErrorDialog.show("Problème", "Impossible de modifier le chapitre, l'affichage des mots communs est en cours.");
-            }
 
             int selectedIndex = comboBoxChapters.getSelectionModel().getSelectedIndex();
             model.updateChapter(selectedIndex, targetTextArea.getText());

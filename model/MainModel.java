@@ -12,14 +12,7 @@ public class MainModel {
         this.allContent = new LinkedHashMap<>();
 
     }
-
-//    public LinkedHashMap<Integer, List<String>> createMapChapters(List<String> content) {
-//        for (int i = 0; i < this.id_chapter; i++) {
-//
-//            this.allContent.put(i, this.allContent.get(i));
-//        }
-//    }
-
+    
     public void updateChapter(int id_chapter, String content) {
         this.getAllContent().put(id_chapter, content);
     }

@@ -2,7 +2,6 @@ package helpers;
 
 import controller.ErrorDialogController;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
