@@ -119,7 +119,7 @@ public class ToolBarController {
                 AlertDialog.show("Succès", "Validation", "Le fichier a été enregistré.");
                 System.out.println("Enregistrement du fichier");
             } catch (IOException e) {
-                e.printStackTrace();
+                AlertDialog.show("Erreur", "Inconnue", "Une erreur est survenue.");
             }
             updateCorpusText();
         }else{
@@ -199,7 +199,6 @@ public class ToolBarController {
                 otherController.loadChapter(selectedIndex);
 
             } catch (IOException e) {
-                e.printStackTrace();
                 AlertDialog.show("Erreur","Problème", "Impossible de recharger le fichier.");
             }
         }
@@ -208,10 +207,6 @@ public class ToolBarController {
     public ComboBox<String> getComboBoxChapters() {
         return comboBoxChapters;
     }
-
-
-
-
 
     @FXML
     private void chargeFile(){
@@ -225,10 +220,6 @@ public class ToolBarController {
 
         File selectedFile = fileChooser.showOpenDialog(stage);
         this.FileSource = selectedFile;
-        if (selectedFile != null) {
-            System.out.println("Fichier sélectionné : " + selectedFile.getAbsolutePath());
-            // Tu peux maintenant le lire et l'afficher dans un TextArea
-        }
 
         if (selectedFile != null) {
             FileContentRaw extractContent = new FileContentRaw(selectedFile.getAbsolutePath());

@@ -1,4 +1,27 @@
-makefile
-.class
-.idea
+# === Java compilation ===
+*.class
+*.jar
+*.war
+*.ear
+
+# === Build output ===
 out/
+bin/
+build/
+target/
+
+# === IDEs ===
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
