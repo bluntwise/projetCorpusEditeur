@@ -23,7 +23,7 @@
 <?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefWidth="1000" prefHeight="1000" fx:controller="controller.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefWidth="1000" prefHeight="1000" fx:controller="src.controller.MainController">
 
     <top>
         <VBox>
@@ -41,49 +41,47 @@
 
 
 
-    <center>
 
+
+    <center>
         <ScrollPane fitToHeight="true" fitToWidth="true">
             <GridPane>
                 <columnConstraints>
                     <ColumnConstraints percentWidth="50"/>
                     <ColumnConstraints percentWidth="50"/>
                 </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/> <!-- La ligne 0 prend toute la hauteur -->
+                </rowConstraints>
 
-<!--                <rowConstraints>-->
-<!--                    <RowConstraints percentHeight="10"/> &lt;!&ndash; Toolbar &ndash;&gt;-->
-<!--                    <RowConstraints percentHeight="70"/> &lt;!&ndash; Zone texte &ndash;&gt;-->
-<!--                </rowConstraints>-->
-
-
-                <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <TextArea fx:id="leftTextArea"
                               wrapText="true"
                               editable="false"
                               maxWidth="Infinity"
                               maxHeight="Infinity"
-                    />
+                              VBox.vgrow="ALWAYS"/>
                     <TextFlow fx:id="leftTextFlow"
                               maxWidth="Infinity"
                               maxHeight="Infinity"
-                    />
+                              VBox.vgrow="ALWAYS"/>
                 </StackPane>
 
-                <!-- Zone droite -->
-                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <TextArea fx:id="rightTextArea"
                               wrapText="true"
                               editable="false"
                               maxWidth="Infinity"
                               maxHeight="Infinity"
-                    />
+                              VBox.vgrow="ALWAYS"/>
                     <TextFlow fx:id="rightTextFlow"
                               maxWidth="Infinity"
                               maxHeight="Infinity"
-                    />
+                              VBox.vgrow="ALWAYS"/>
                 </StackPane>
             </GridPane>
         </ScrollPane>
+
     </center>
 
     <bottom>

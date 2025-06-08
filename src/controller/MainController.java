@@ -1,12 +1,13 @@
-package controller;
+package src.controller;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import helpers.ErrorDialog;
-import helpers.LevenshteinDistance;
-import helpers.CompareText;
+import src.helpers.AlertDialog;
+import src.helpers.AlertDialog;
+import src.helpers.LevenshteinDistance;
+import src.helpers.CompareText;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -102,7 +103,7 @@ public class MainController {
             this.footerController = footerCtrl;
 
         } catch (IOException e) {
-            ErrorDialog.show("Error", "Error loading FXML file.");
+            AlertDialog.show("Erreur", "Problème", "Error loading FXML file.");
             throw new RuntimeException(e);
         }
     }
@@ -139,9 +140,9 @@ public class MainController {
     }
 
     public ToolBarController getToolBarController(String zone) {
-        if (zone == "left") {
+        if (zone.equals("left")) {
             return this.toolBarControllerLeft;
-        }else if (zone == "right") {
+        }else if (zone.equals("right")) {
             return this.toolBarControllerRight;
         }
         return null;

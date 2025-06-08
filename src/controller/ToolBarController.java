@@ -1,4 +1,4 @@
-package controller;
+package src.controller;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-import helpers.ErrorDialog;
-import helpers.FileContentRaw;
-import helpers.TextParserCorpus;
+import src.helpers.AlertDialog;
+import src.helpers.FileContentRaw;
+import src.helpers.TextParserCorpus;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.MainModel;
+import src.model.MainModel;
 import javafx.fxml.FXML;
 
-import static helpers.RomanConverter.toRomanWithDot;
+import static src.helpers.RomanConverter.toRomanWithDot;
 
 public class ToolBarController {
     private MainController parent;
@@ -90,9 +90,15 @@ public class ToolBarController {
     @FXML
     public void saveFile(){
         if (this.FileSource == null) {
-            System.out.println("Aucun fichier téléchargé");
+            AlertDialog.show("Erreur","Problème", "Aucun fichier téléchargé");
             return;
         }
+
+        if (parent.getHighlighted()){
+            AlertDialog.show("Erreur","Problème", "Affichage des mots en communs en cours, action impossible.");
+            return;
+        }
+
         if (!isNowEditable){
             LinkedHashMap<Integer, String> allContent = model.getAllContent();
 
@@ -109,13 +115,15 @@ public class ToolBarController {
                     writer.write(content_chapter);
                     writer.newLine();
                 }
+
+                AlertDialog.show("Succès", "Validation", "Le fichier a été enregistré.");
                 System.out.println("Enregistrement du fichier");
             } catch (IOException e) {
                 e.printStackTrace();
             }
             updateCorpusText();
         }else{
-            ErrorDialog.show("Erreur", "Veuillez finir la modification du fichier en réappuyant sur le bouton Modification.");
+            AlertDialog.show("Problème","Erreur", "Veuillez finir la modification du fichier en réappuyant sur le bouton Modification.");
         }
 
     }
@@ -128,7 +136,7 @@ public class ToolBarController {
                 : parent.getRightTextArea();
 
         if (parent.getHighlighted()){
-            ErrorDialog.show("Problème", "Impossible de modifier le chapitre, l'affichage des mots communs est en cours.");
+            AlertDialog.show("Erreur", "Problème", "Impossible de modifier le chapitre, l'affichage des mots communs est en cours.");
             return;
         }
         isNowEditable = !targetTextArea.isEditable();
@@ -139,16 +147,13 @@ public class ToolBarController {
 
         } else {
             targetTextArea.setStyle("");
-
-
-
             int selectedIndex = comboBoxChapters.getSelectionModel().getSelectedIndex();
             model.updateChapter(selectedIndex, targetTextArea.getText());
         }
     }
 
     public String inverseZone(){
-        if (zone == "left") {
+        if (zone.equals("left")) {
             return "right";
         }else{
             return "left";
@@ -195,7 +200,7 @@ public class ToolBarController {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                ErrorDialog.show("Erreur", "Impossible de recharger le fichier.");
+                AlertDialog.show("Erreur","Problème", "Impossible de recharger le fichier.");
             }
         }
     }
@@ -240,7 +245,7 @@ public class ToolBarController {
             comboBoxChapters.getItems().setAll(chapterLabels);
             comboBoxChapters.getSelectionModel().selectFirst();
         }else{
-            ErrorDialog.show("Problème", "Aucun fichier séléctionné.");
+            AlertDialog.show("Erreur","Problème", "Aucun fichier séléctionné.");
         }
 
 

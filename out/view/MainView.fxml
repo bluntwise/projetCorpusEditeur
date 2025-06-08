@@ -23,7 +23,7 @@
 <?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefWidth="1000" prefHeight="1000" fx:controller="controller.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefWidth="1000" prefHeight="1000" fx:controller="src.controller.MainController">
 
     <top>
         <VBox>

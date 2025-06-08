@@ -1,4 +1,4 @@
-package controller;
+package src.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;

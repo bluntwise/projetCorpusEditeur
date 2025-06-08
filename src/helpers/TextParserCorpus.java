@@ -1,6 +1,6 @@
-package helpers;
+package src.helpers;
 
-import model.MainModel;
+import src.model.MainModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +33,7 @@ public class TextParserCorpus {
         for (int i = 0; i < titles.size(); i++) {
             String body = (i + 1 < parts.length) ? parts[i + 1].trim() : "";
 
-//            List<String> body = Arrays.stream(bodyRaw.split("\n"))
-//                    .map(String::trim)
-//                    .filter(line -> !line.isEmpty())
-//                    .toList();
-            m.addChapter(body);
+           m.addChapter(body);
         }
         return m;
     }

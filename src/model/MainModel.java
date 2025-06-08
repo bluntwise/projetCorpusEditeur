@@ -1,4 +1,4 @@
-package model;
+package src.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,7 +12,7 @@ public class MainModel {
         this.allContent = new LinkedHashMap<>();
 
     }
-    
+
     public void updateChapter(int id_chapter, String content) {
         this.getAllContent().put(id_chapter, content);
     }

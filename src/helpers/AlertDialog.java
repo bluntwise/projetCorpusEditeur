@@ -1,6 +1,6 @@
-package helpers;
+package src.helpers;
 
-import controller.ErrorDialogController;
+import src.controller.ErrorDialogController;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +9,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ErrorDialog {
-    public static void show(String title, String message) {
+public class AlertDialog {
+    public static void show(String bigTitle, String title, String message) {
         try{
-            FXMLLoader loader = new FXMLLoader(ErrorDialog.class.getResource("/view/ErrorDialogView.fxml"));
+            FXMLLoader loader = new FXMLLoader(AlertDialog.class.getResource("/view/ErrorDialogView.fxml"));
             Parent root = loader.load();
 
             ErrorDialogController controller = loader.getController();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Erreur");
+            dialogStage.setTitle(bigTitle);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setScene(new Scene(root));

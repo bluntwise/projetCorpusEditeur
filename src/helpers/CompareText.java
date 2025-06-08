@@ -1,4 +1,4 @@
-package helpers;
+package src.helpers;
 
 import javafx.scene.Parent;
 

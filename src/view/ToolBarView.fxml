@@ -5,7 +5,7 @@
 
 
 <?import javafx.scene.control.TextArea?>
-<VBox xmlns:fx="http://javafx.com/fxml" spacing="5" prefWidth="380" fx:controller="controller.ToolBarController">
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="5" prefWidth="380" fx:controller="src.controller.ToolBarController">
 
 <!--      fx:controller="controller.editeurController.java"-->
 
