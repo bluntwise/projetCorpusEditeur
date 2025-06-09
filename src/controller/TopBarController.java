@@ -39,7 +39,7 @@ public class TopBarController {
 
         // collect and display common words
         if (!highlighted){
-            Set<String> commonWords = parent.compareTexts(); // ou une autre méthode si tu veux déclencher l'analyse
+            Set<String> commonWords = parent.compareTexts();
             displayWithHighlights(commonWords);
             highlighted = true;
 
@@ -50,11 +50,11 @@ public class TopBarController {
     }
 
     /**
-     * Footer visibkle or not (call parent method)
+     * Footer visible or not (call parent method)
      */
     @FXML
     private void onToggleFooterClicked() {
-        parent.toggleFooterVisibility(); // `parent` est une référence à MainController
+        parent.toggleFooterVisibility();
     }
 
 
@@ -114,9 +114,9 @@ public class TopBarController {
 
             if (commonsWords.contains(part.trim())) {
                 textNode.setFill(Color.RED);
-                textNode.setStyle("-fx-font-weight: bold;"); // fluo
+                textNode.setStyle("-fx-font-weight: bold;");
             } else {
-                textNode.setFill(Color.BLACK); // texte normal
+                textNode.setFill(Color.BLACK);
             }
 
             targetFlow.getChildren().add(textNode);

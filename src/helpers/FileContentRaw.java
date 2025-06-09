@@ -26,7 +26,6 @@ public class FileContentRaw {
 
             while (line != null) {
                 result.append(line).append("\n");
-                // read next line
                 line = reader.readLine();
             }
 

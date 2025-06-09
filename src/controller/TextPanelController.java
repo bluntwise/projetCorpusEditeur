@@ -155,8 +155,8 @@ public class TextPanelController {
                     Integer id_chapter = entry.getKey();
                     String content_chapter = entry.getValue();
 
-
-                    writer.write("\n" + toRomanWithDot(id_chapter + 1) + "\n"); // chapter 1 = I.
+                    // chapter 1 = I.
+                    writer.write("\n" + toRomanWithDot(id_chapter + 1) + "\n");
                     writer.newLine();
 
                     // write all lines

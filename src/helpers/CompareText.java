@@ -19,7 +19,7 @@ public class CompareText {
         Set<String> set2 = new HashSet<>(List.of(words2));
 
 
-        // Intersection : mots communs
+        // Common Words
         Set<String> commonWords = new HashSet<>(set1);
         commonWords.retainAll(set2);
 
