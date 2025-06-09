@@ -1,5 +1,10 @@
 package src.helpers;
 
+
+/**
+ * Utility class for converting integers to Roman numerals with a trailing dot.
+ */
+
 public class RomanConverter {
 
     public static String toRomanWithDot(int number) {

@@ -17,7 +17,7 @@ import javafx.scene.control.TextArea;
 
 /**
  * Main Controller of the Application CorpusEditeur
- * Handle initialisation of the interface with
+ * Handle initialisation of the interface with all Controllers declaraation
  */
 public class MainController {
 
@@ -27,20 +27,23 @@ public class MainController {
     @FXML
     private TopBarController menuBarController;
 
+
     @FXML private TextArea leftTextArea;
     @FXML private TextArea rightTextArea;
 
     @FXML private TextFlow leftTextFlow;
     @FXML private TextFlow rightTextFlow;
-    private TextPanelController toolBarControllerLeft;
-    private TextPanelController toolBarControllerRight;
 
+    private TextPanelController TextPanelControllerLeft;
+    private TextPanelController TextPanelControllerRight;
+
+    // Stage used
     private Stage stage;
 
     @FXML
-    private AnchorPane toolbar1;
+    private AnchorPane textpanel1;
     @FXML
-    private AnchorPane toolbar2;
+    private AnchorPane textpanel2;
 
     @FXML
     private AnchorPane footerContainer;
@@ -49,6 +52,10 @@ public class MainController {
 
     private boolean isFooterVisible = true;
 
+
+    /**
+     * Display or not the footer with attribute boolean isFooterVisible
+     */
     public void toggleFooterVisibility() {
         isFooterVisible = !isFooterVisible;
         footerContainer.setVisible(isFooterVisible);
@@ -56,14 +63,19 @@ public class MainController {
     }
 
 
-
+    /**
+     * Initializes the main user interface by loading various FXML views
+     * (menu bar, text panels, footer) and configuring their corresponding controllers.
+     *
+     */
 
     public void initialize() {
         try {
 
             // Load the view FMXL for the top bar
-            FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/view/MenuBarView.fxml"));
+            FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/view/TopBarView.fxml"));
             VBox menuNode = menuLoader.load();
+
             // Get the controller of the top bar
             TopBarController menuCtrl = menuLoader.getController();
 
@@ -74,30 +86,49 @@ public class MainController {
             // Injection of the node in the main Interface
             menuBarContainer.getChildren().add(menuNode);
 
+            // load fxml file for left panel
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/TextPanelView.fxml"));
 
-            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/ToolBarView.fxml"));
+            // Parses the FXML and returns the root Node of the UI component
             Node node1 = loader1.load();
-            TextPanelController ctrl1 = loader1.getController();
-            ctrl1.setParent(this);
-            ctrl1.setStage(stage);
-            ctrl1.setZone("left");
-            toolbar1.getChildren().add(node1);
-            this.toolBarControllerLeft = ctrl1;
 
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ToolBarView.fxml"));
+            // Collect the controller associated with the fxml file
+            TextPanelController ctrl1 = loader1.getController();
+
+            // set ParentController to communicate with MainController
+            ctrl1.setParent(this);
+
+            // Assigns javaFX stage
+            ctrl1.setStage(stage);
+
+            // select the side of the panel
+            ctrl1.setZone("left");
+
+            // Adds the loaded UI component to the left toolbar container
+            textpanel1.getChildren().add(node1);
+
+            // storage of the controller
+            this.TextPanelControllerLeft = ctrl1;
+
+            // Same for the right TextPanelController
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/TextPanelView.fxml"));
             Node node2 = loader2.load();
             TextPanelController ctrl2 = loader2.getController();
             ctrl2.setParent(this);
             ctrl2.setStage(stage);
             ctrl2.setZone("right");
-            this.toolBarControllerRight = ctrl2;
-            toolbar2.getChildren().add(node2);
+            this.TextPanelControllerRight = ctrl2;
+            textpanel2.getChildren().add(node2);
 
+
+            // Set visible because mode commons words disabled
             leftTextArea.setVisible(true);
             leftTextFlow.setVisible(false);
             rightTextArea.setVisible(true);
             rightTextFlow.setVisible(false);
 
+
+            // Same as TextPanelController for FooterController
             FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/view/FooterView.fxml"));
             Node footerNode = footerLoader.load();
             FooterController footerCtrl = footerLoader.getController();
@@ -110,13 +141,6 @@ public class MainController {
         }
     }
 
-    public String getTextLeftArea(){
-        return leftTextArea.getText();
-    }
-
-    public String getTextRightArea(){
-        return rightTextArea.getText();
-    }
 
     public TextArea getLeftTextArea() {
         return leftTextArea;
@@ -133,19 +157,31 @@ public class MainController {
         return rightTextFlow;
     }
 
+    /**
+     * @return boolean value if commons words mode is enabled
+     */
     public boolean getHighlighted(){
         return this.menuBarController.getHighlighted();
     }
 
+    /**
+     * Compare TextPanels contents and return commons words
+     * @return Set<String> with commons words
+     */
     public Set<String> compareTexts() {
-        return CompareText.compareTextsUtils(this.getTextLeftArea(), this.getTextRightArea());
+        return CompareText.compareTextsUtils(this.getLeftTextArea().getText(), this.getRightTextArea().getText());
     }
 
-    public TextPanelController getToolBarController(String zone) {
+    /**
+     *
+     * @param zone
+     * @return TextPanelController depends on zone params
+     */
+    public TextPanelController getTextPanelController(String zone) {
         if (zone.equals("left")) {
-            return this.toolBarControllerLeft;
+            return this.TextPanelControllerLeft;
         }else if (zone.equals("right")) {
-            return this.toolBarControllerRight;
+            return this.TextPanelControllerRight;
         }
         return null;
     }
@@ -160,6 +196,12 @@ public class MainController {
         return footerController;
     }
 
+    /**
+     *
+     * @param s
+     * @param t
+     * @return integer value LevenshteinDistance
+     */
     public int getLevenshteinDistance(String s, String t) {
         return LevenshteinDistance.distanceCharLevel(s, t);
     }

@@ -3,12 +3,13 @@ package src.helpers;
 public class LevenshteinDistance {
 
     /**
-     * Calcule la distance de Levenshtein caractère par caractère entre deux chaînes.
+     * Calculates the Levenshtein distance character by character between two strings.
      *
-     * @param s1 La première chaîne
-     * @param s2 La seconde chaîne
-     * @return La distance de Levenshtein
+     * @param s1
+     * @param s2
+     * @return The Levenshtein distance
      */
+
     public static int distanceCharLevel(String s1, String s2) {
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
 
@@ -21,9 +22,9 @@ public class LevenshteinDistance {
                 } else {
                     int cost = s1.charAt(i - 1) == s2.charAt(j - 1) ? 0 : 1;
                     dp[i][j] = Math.min(
-                            Math.min(dp[i - 1][j] + 1,        // Suppression
-                                    dp[i][j - 1] + 1),       // Insertion
-                            dp[i - 1][j - 1] + cost  // Substitution
+                            Math.min(dp[i - 1][j] + 1,
+                                    dp[i][j - 1] + 1),
+                            dp[i - 1][j - 1] + cost
                     );
                 }
             }

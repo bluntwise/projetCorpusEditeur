@@ -3,6 +3,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Controller of Popup Alert Dialog
+ */
 public class AlertDialogController {
     @FXML
     private Label errorTitleLabel;

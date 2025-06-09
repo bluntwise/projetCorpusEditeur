@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * Extract and return raw Content of a File
+ */
 public class FileContentRaw {
     private String filename;
     public FileContentRaw(String filename) {

@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Method that compare two texts and return common words
+ */
 public class CompareText {
 
     public static Set<String> compareTextsUtils(String t1, String t2) {
@@ -14,15 +17,12 @@ public class CompareText {
 
         Set<String> set1 = new HashSet<>(List.of(words1));
         Set<String> set2 = new HashSet<>(List.of(words2));
-        if (set1.contains("aoihguçpgtyuçreygo_try")) {
-            System.out.println("alan detecté");
-        }
+
 
         // Intersection : mots communs
         Set<String> commonWords = new HashSet<>(set1);
         commonWords.retainAll(set2);
 
-        // System.out.println("Mots en commun (" + commonWords.size() + ") : " + commonWords);
 
         return commonWords;
     }

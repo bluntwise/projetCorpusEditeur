@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Allow to parse a String, create and return a Corpus Model Object
+ */
 public class TextParserCorpus {
     private String content;
     public TextParserCorpus(String content) {
@@ -19,6 +23,7 @@ public class TextParserCorpus {
     public CorpusModel parse() {
         CorpusModel m = new CorpusModel();
 
+        // use of a REGEX for the extraction and split
         Pattern pattern = Pattern.compile("(^[IVXLCDM]+\\..*)", Pattern.MULTILINE);
         String[] parts = pattern.split(content);
 

@@ -9,26 +9,38 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Controller of the TopBar
+ */
 public class TopBarController {
 
     public MenuBar menuBar;
     private MainController parent;
 
-
+    // value to know if common words enabled
     private boolean highlighted = false;
+
     public void setParent(MainController parent) {
         this.parent = parent;
     }
+
     public boolean getHighlighted() {
         return highlighted;
     }
+
+
+    /**
+     * Method that enabled common words or disabled
+     */
     @FXML
     public void handleShowCommonWords() {
         if (parent == null){return;}
 
+        // collect and display common words
         if (!highlighted){
-            Set<String> commonsWords = parent.compareTexts(); // ou une autre méthode si tu veux déclencher l'analyse
-            displayWithHighlights(commonsWords);
+            Set<String> commonWords = parent.compareTexts(); // ou une autre méthode si tu veux déclencher l'analyse
+            displayWithHighlights(commonWords);
             highlighted = true;
 
         }else{
@@ -37,16 +49,24 @@ public class TopBarController {
         }
     }
 
+    /**
+     * Footer visibkle or not (call parent method)
+     */
     @FXML
     private void onToggleFooterClicked() {
         parent.toggleFooterVisibility(); // `parent` est une référence à MainController
     }
 
 
+
     public void setHighlighted(boolean highlighted) {
         this.highlighted = highlighted;
     }
 
+
+    /**
+     * Set visible textArea because common Words mode disabled
+     */
     @FXML
     public void removeHighlights() {
         parent.getLeftTextArea().setVisible(true);
@@ -54,6 +74,11 @@ public class TopBarController {
         parent.getLeftTextFlow().setVisible(false);
         parent.getRightTextFlow().setVisible(false);
     }
+
+    /**
+     * Display common words with highlighted style
+     * @param commonsWords
+     */
     @FXML
     public void displayWithHighlights(Set<String> commonsWords){
         parent.getLeftTextArea().setVisible(false);
@@ -69,6 +94,12 @@ public class TopBarController {
 
     }
 
+    /**
+     * Technical method that applu highlights on text parameters
+     * @param content
+     * @param commonsWords
+     * @param targetFlow
+     */
     @FXML
     public void applyWithHighlights(String content, Set<String> commonsWords, TextFlow targetFlow){
         targetFlow.getChildren().clear();

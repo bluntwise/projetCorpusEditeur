@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Class that create a popup Alert with a static method
+ */
 public class AlertDialog {
     public static void show(String bigTitle, String title, String message) {
         try{

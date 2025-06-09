@@ -3,6 +3,9 @@ package src.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Controller of the Application Footer
+ */
 public class FooterController {
 
     @FXML
