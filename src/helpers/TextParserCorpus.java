@@ -1,13 +1,12 @@
 package src.helpers;
 
-import src.model.MainModel;
+import src.model.CorpusModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 public class TextParserCorpus {
     private String content;
     public TextParserCorpus(String content) {
@@ -17,8 +16,8 @@ public class TextParserCorpus {
         return this.content;
     }
 
-    public MainModel parse() {
-        MainModel m = new MainModel();
+    public CorpusModel parse() {
+        CorpusModel m = new CorpusModel();
 
         Pattern pattern = Pattern.compile("(^[IVXLCDM]+\\..*)", Pattern.MULTILINE);
         String[] parts = pattern.split(content);

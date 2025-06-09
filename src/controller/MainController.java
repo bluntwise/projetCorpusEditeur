@@ -1,10 +1,7 @@
 package src.controller;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import src.helpers.AlertDialog;
 import src.helpers.AlertDialog;
 import src.helpers.LevenshteinDistance;
 import src.helpers.CompareText;
@@ -17,21 +14,26 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+
+/**
+ * Main Controller of the Application CorpusEditeur
+ * Handle initialisation of the interface with
+ */
 public class MainController {
 
 
     @FXML
     private AnchorPane menuBarContainer;
     @FXML
-    private MenuBarController menuBarController;
+    private TopBarController menuBarController;
 
     @FXML private TextArea leftTextArea;
     @FXML private TextArea rightTextArea;
 
     @FXML private TextFlow leftTextFlow;
     @FXML private TextFlow rightTextFlow;
-    private ToolBarController toolBarControllerLeft;
-    private ToolBarController toolBarControllerRight;
+    private TextPanelController toolBarControllerLeft;
+    private TextPanelController toolBarControllerRight;
 
     private Stage stage;
 
@@ -63,7 +65,7 @@ public class MainController {
             FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/view/MenuBarView.fxml"));
             VBox menuNode = menuLoader.load();
             // Get the controller of the top bar
-            MenuBarController menuCtrl = menuLoader.getController();
+            TopBarController menuCtrl = menuLoader.getController();
 
             // Manual set
             menuCtrl.setParent(this);
@@ -75,7 +77,7 @@ public class MainController {
 
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/view/ToolBarView.fxml"));
             Node node1 = loader1.load();
-            ToolBarController ctrl1 = loader1.getController();
+            TextPanelController ctrl1 = loader1.getController();
             ctrl1.setParent(this);
             ctrl1.setStage(stage);
             ctrl1.setZone("left");
@@ -84,7 +86,7 @@ public class MainController {
 
             FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ToolBarView.fxml"));
             Node node2 = loader2.load();
-            ToolBarController ctrl2 = loader2.getController();
+            TextPanelController ctrl2 = loader2.getController();
             ctrl2.setParent(this);
             ctrl2.setStage(stage);
             ctrl2.setZone("right");
@@ -139,7 +141,7 @@ public class MainController {
         return CompareText.compareTextsUtils(this.getTextLeftArea(), this.getTextRightArea());
     }
 
-    public ToolBarController getToolBarController(String zone) {
+    public TextPanelController getToolBarController(String zone) {
         if (zone.equals("left")) {
             return this.toolBarControllerLeft;
         }else if (zone.equals("right")) {
@@ -149,7 +151,7 @@ public class MainController {
     }
 
 
-    public MenuBarController getMenuBarController() {
+    public TopBarController getMenuBarController() {
         return menuBarController;
     }
 

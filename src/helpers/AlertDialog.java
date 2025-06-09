@@ -1,6 +1,6 @@
 package src.helpers;
 
-import src.controller.ErrorDialogController;
+import src.controller.AlertDialogController;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ public class AlertDialog {
             FXMLLoader loader = new FXMLLoader(AlertDialog.class.getResource("/view/ErrorDialogView.fxml"));
             Parent root = loader.load();
 
-            ErrorDialogController controller = loader.getController();
+            AlertDialogController controller = loader.getController();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(bigTitle);

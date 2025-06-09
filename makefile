@@ -1,5 +1,5 @@
 # Configuration
-PATH_TO_FX=/opt/javafx/javafx-sdk-21.0.7/lib
+PATH_TO_FX=lib/
 JAVAFX_MODULES=javafx.controls,javafx.fxml
 
 SRC_DIR=src
