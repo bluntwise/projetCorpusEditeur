@@ -32,9 +32,6 @@ public class CorpusModel {
         this.id_chapter++;
     }
 
-    public LinkedHashMap<Integer, String> getAllChapter() {
-        return allContent;
-    }
     public int getIdChapter() {
         return id_chapter;
     }

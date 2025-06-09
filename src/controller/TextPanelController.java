@@ -232,9 +232,6 @@ public class TextPanelController {
         return FileSource;
     }
 
-    public CorpusModel getModel() {
-        return model;
-    }
 
     public void setModel(CorpusModel model) {
         this.model = model;
