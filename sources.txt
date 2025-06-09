@@ -1,0 +1,13 @@
+src/controller/MainController.java
+src/controller/TopBarController.java
+src/controller/FooterController.java
+src/controller/TextPanelController.java
+src/controller/AlertDialogController.java
+src/model/CorpusModel.java
+src/App.java
+src/helpers/LevenshteinDistance.java
+src/helpers/FileContentRaw.java
+src/helpers/RomanConverter.java
+src/helpers/AlertDialog.java
+src/helpers/TextParserCorpus.java
+src/helpers/CompareText.java
